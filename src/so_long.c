@@ -6,7 +6,7 @@
 /*   By: kasingh <kasingh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:00:36 by kasingh           #+#    #+#             */
-/*   Updated: 2024/02/24 11:48:40 by kasingh          ###   ########.fr       */
+/*   Updated: 2024/02/24 14:56:30 by kasingh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,25 +32,25 @@ void	map_error(char **map, char *msg)
 	exit(1);
 }
 
-int	is_map_closed_by_1(t_map *map)
+int	is_map_closed_by_1(t_game *game)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (map->map[i])
+	while (game->map[i])
 	{
 		j = 0;
-		while (map->map[i][j])
+		while (game->map[i][j])
 		{
-			if (i == 0 || i == map->rows - 1)
+			if (i == 0 || i == game->rows - 1)
 			{
-				if (map->map[i][j] != '1')
+				if (game->map[i][j] != '1')
 					return (0);
 			}
-			else if (j == 0 || j == map->cols - 1)
+			else if (j == 0 || j == game->cols - 1)
 			{
-				if (map->map[i][j] != '1')
+				if (game->map[i][j] != '1')
 					return (0);
 			}
 			j++;
@@ -67,25 +67,25 @@ int	is_good_symbol(char c)
 	return (0);
 }
 
-int	is_valid_map(t_map *map)
+int	is_valid_map(t_game *game)
 {
 	int			i;
 	int			j;
 	static int	tab[3];
 
 	i = 0;
-	if (!is_map_closed_by_1(map))
-		map_error(map->map, "Error\nMap is not closed by 1\n");
-	while (map->map[i])
+	if (!is_map_closed_by_1(game))
+		map_error(game->map, "Error\nMap is not closed by 1\n");
+	while (game->map[i])
 	{
 		j = 0;
-		while (map->map[i][j])
+		while (game->map[i][j])
 		{
-			if (!is_good_symbol(map->map[i][j]))
-				map_error(map->map, "Error\nInvalid symbol in map\n");
-			tab[0] += (map->map[i][j] == 'P');
-			tab[1] += (map->map[i][j] == 'E');
-			tab[2] += (map->map[i][j] == 'C');
+			if (!is_good_symbol(game->map[i][j]))
+				map_error(game->map, "Error\nInvalid symbol in map\n");
+			tab[0] += (game->map[i][j] == 'P');
+			tab[1] += (game->map[i][j] == 'E');
+			tab[2] += (game->map[i][j] == 'C');
 			j++;
 		}
 		i++;
@@ -95,14 +95,14 @@ int	is_valid_map(t_map *map)
 	return (1);
 }
 
-int	is_map_rectangle(t_map *map)
+int	is_map_rectangle(t_game *game)
 {
 	int	i;
 
 	i = 0;
-	while (map->map[i])
+	while (game->map[i])
 	{
-		if ((int)ft_strlen(map->map[i]) != map->cols)
+		if ((int)ft_strlen(game->map[i]) != game->cols)
 			return (0);
 		i++;
 	}
@@ -136,7 +136,7 @@ void	init_tab_count(int tab_count[4], int rows, int cols)
 	tab_count[3] = cols;
 }
 
-int	is_map_finishable(t_map *map, char **cpy_map)
+int	is_map_finishable(t_game *game, char **cpy_map)
 {
 	int			tab_count[4];
 	int			y;
@@ -144,7 +144,7 @@ int	is_map_finishable(t_map *map, char **cpy_map)
 	static int	p_start[2];
 
 	y = 0;
-	init_tab_count(tab_count, map->rows, map->cols);
+	init_tab_count(tab_count, game->rows, game->cols);
 	while (cpy_map[y])
 	{
 		x = 0;
@@ -164,7 +164,7 @@ int	is_map_finishable(t_map *map, char **cpy_map)
 	return (free_map(cpy_map), tab_count[0] == 0 && tab_count[1] == 1);
 }
 
-void	get_map_rows(t_map *map, char *file)
+void	get_map_rows(t_game *game, char *file)
 {
 	int		fd;
 	int		i;
@@ -187,30 +187,30 @@ void	get_map_rows(t_map *map, char *file)
 		free(line);
 	}
 	close(fd);
-	map->rows = i;
+	game->rows = i;
 }
 
-void	rm_newline(t_map *map)
+void	rm_newline(t_game *game)
 {
 	int	i;
 
 	i = 0;
-	while (map->map[i])
+	while (game->map[i])
 	{
-		if (map->map[i][ft_strlen(map->map[i]) - 1] == '\n')
-			map->map[i][ft_strlen(map->map[i]) - 1] = '\0';
+		if (game->map[i][ft_strlen(game->map[i]) - 1] == '\n')
+			game->map[i][ft_strlen(game->map[i]) - 1] = '\0';
 		i++;
 	}
 }
 
-void	get_map(t_map *map, char *file)
+void	get_map(t_game *game, char *file)
 {
 	int	fd;
 	int	i;
 
 	i = 0;
-	map->map = malloc((map->rows + 1) * sizeof(char *));
-	if (!map->map)
+	game->map = malloc((game->rows + 1) * sizeof(char *));
+	if (!game->map)
 	{
 		ft_putstr_fd("Error\nMalloc failed\n", 2);
 		exit(1);
@@ -224,22 +224,22 @@ void	get_map(t_map *map, char *file)
 	}
 	while (1)
 	{
-		map->map[i] = get_next_line(fd);
-		if (!map->map[i++])
+		game->map[i] = get_next_line(fd);
+		if (!game->map[i++])
 			break ;
 	}
-	rm_newline(map);
+	rm_newline(game);
 	close(fd);
 }
 
-void	ft_print_map(t_map *map)
+void	ft_print_game(t_game *game)
 {
 	int	i;
 
 	i = 0;
-	while (map->map[i])
+	while (game->map[i])
 	{
-		ft_printf("%s\n", map->map[i]);
+		ft_printf("%s\n", game->map[i]);
 		i++;
 	}
 }
@@ -268,7 +268,7 @@ char	**ft_cpy_2dtab(char **tab)
 	return (cpy);
 }
 
-t_map	parse_map(t_map *map, char *file)
+t_game	parse_map(t_game *game, char *file)
 {
 	char	**cpy_map;
 
@@ -277,30 +277,30 @@ t_map	parse_map(t_map *map, char *file)
 		ft_putstr_fd("Error\nInvalid file extension\n", 2);
 		exit(1);
 	}
-	get_map_rows(map, file);
-	get_map(map, file);
-	ft_print_map(map);
-	map->cols = ft_strlen(map->map[0]);
-	if ((map->rows < 3 || map->cols < 5) && ft_strlen(map->map[map->rows - 1]) < 5)
-		map_error(map->map, "Error\nMap is too small\n");
-	if (!is_map_rectangle(map))
-		map_error(map->map, "Error\nMap is not a rectangle\n");
-	if (!is_valid_map(map))
-		map_error(map->map, "Error\nMap is not valid\n");
-	cpy_map = ft_cpy_2dtab(map->map);
-	if (!is_map_finishable(map, cpy_map))
-		map_error(map->map, "Error\nMap is not finishable\n");
-	return (*map);
+	get_map_rows(game, file);
+	get_map(game, file);
+	ft_print_game(game);
+	game->cols = ft_strlen(game->map[0]);
+	if ((game->rows < 3 || game->cols < 5) && ft_strlen(game->map[game->rows - 1]) < 5)
+		map_error(game->map, "Error\nMap is too small\n");
+	if (!is_map_rectangle(game))
+		map_error(game->map, "Error\nMap is not a rectangle\n");
+	if (!is_valid_map(game))
+		map_error(game->map, "Error\nMap is not valid\n");
+	cpy_map = ft_cpy_2dtab(game->map);
+	if (!is_map_finishable(game, cpy_map))
+		map_error(game->map, "Error\nMap is not finishable\n");
+	return (*game);
 }
 
 int	main(int ac, char **av)
 {
-	t_map	map;
+	t_game	game;
 
 	if (ac != 2)
 		ft_putstr_fd("Error\nInvalid number of arguments\n", 2);
-	map = parse_map(&map, av[1]);
+	game = parse_map(&game, av[1]);
 	ft_printf("Map is valid\n");
-	free_map(map.map);
+	free_map(game.map);
 	return (0);
 }
