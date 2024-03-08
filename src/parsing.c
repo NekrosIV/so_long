@@ -6,7 +6,7 @@
 /*   By: kasingh <kasingh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 18:37:57 by kasingh           #+#    #+#             */
-/*   Updated: 2024/03/08 18:40:01 by kasingh          ###   ########.fr       */
+/*   Updated: 2024/03/08 18:53:35 by kasingh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ t_game	parse_map(t_game *game, char *file)
 	get_map(game, file);
 	game->cols = ft_strlen(game->map[0]);
 	if ((game->rows < 3 || game->cols < 5) && ft_strlen(game->map[game->rows
-			- 1]) < 5)
+				- 1]) < 5)
 		map_error(game->map, "Error\nMap is too small\n");
 	if (game->rows * 35 > 1080 || game->cols * 35 > 1920)
 		map_error(game->map, "Error\nMap is too big\n");
