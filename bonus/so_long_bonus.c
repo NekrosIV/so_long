@@ -1,34 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   so_long_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kasingh <kasingh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 18:00:36 by kasingh           #+#    #+#             */
-/*   Updated: 2024/03/08 18:45:58 by kasingh          ###   ########.fr       */
+/*   Created: 2024/02/22 11:04:59 by kasingh           #+#    #+#             */
+/*   Updated: 2024/03/08 18:14:59 by kasingh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-
-void	*good_sprite(t_game *game)
-{
-	int	v;
-
-	v = 5;
-	if (game->direction == 'u')
-		v = 5;
-	else if (game->direction == 'd')
-		v = 7;
-	else if (game->direction == 'l')
-		v = 8;
-	else if (game->direction == 'r')
-		v = 6;
-	else
-		v = 2;
-	return (game->img_ptr[v]);
-}
+#include "so_long_bonus.h"
 
 void	map_render(t_game *game)
 {
@@ -41,22 +23,49 @@ void	map_render(t_game *game)
 		x = 0;
 		while (game->map[y][x])
 		{
-			if (game->map[y][x] == '1')
+			if (game->map[y][x] == '0')
+				put_img(game, x * 35, y * 35, game->img_ptr[0]);
+			else if (game->map[y][x] == '1')
 				put_img(game, x * 35, y * 35, game->img_ptr[1]);
 			else if (game->map[y][x] == 'P')
-				put_img(game, x * 35, y * 35, good_sprite(game));
-			else if (game->map[y][x] == '0')
-				put_img(game, x * 35, y * 35, game->img_ptr[0]);
+				put_img(game, x * 35, y * 35, game->img_ptr[2]);
 			else if (game->map[y][x] == 'C')
 				put_img(game, x * 35, y * 35, game->img_ptr[3]);
-			else if (game->map[y][x] == 'E' && game->coins != 0)
+			else if (game->map[y][x] == 'E')
 				put_img(game, x * 35, y * 35, game->img_ptr[0]);
-			else if (game->map[y][x] == 'E' && game->coins <= 0)
-				put_img(game, x * 35, y * 35, game->img_ptr[4]);
+			else if (game->map[y][x] == 'M')
+				put_img(game, x * 35, y * 35, game->img_ptr[9]);
 			x++;
 		}
 		y++;
 	}
+}
+
+int	monster_move(t_game *game)
+{
+	static int	i;
+	int			y;
+	int			x;
+	int			good_mostr;
+
+	y = game->m[i][0];
+	x = game->m[i][1];
+	game->d_m = calculate_direction_moster();
+	if (game->map[y][x] == 'M')
+		monster_move2(game, y, x, i);
+	good_mostr = i;
+	i++;
+	if (i == game->monster)
+		i = 0;
+	return (good_mostr);
+}
+
+void	call_other_functions(t_game *game)
+{
+	srand(time(NULL));
+	init_img(game);
+	map_render(game);
+	monster_move(game);
 }
 
 int	main(int ac, char **av)
@@ -78,7 +87,7 @@ int	main(int ac, char **av)
 		free_map(game.map);
 		return (0);
 	}
-	init_img(&game);
+	call_other_functions(&game);
 	mlx_loop_hook(game.mlx_ptr, loop_hook, &game);
 	mlx_hook(game.win_ptr, 17, 0, mouse_close, &game);
 	mlx_hook(game.win_ptr, 02, (1L << 0), key_hook, &game);

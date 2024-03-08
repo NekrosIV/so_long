@@ -2,14 +2,17 @@ NAME = so_long
 BONUS_NAME = so_long_bonus
 LIBFTNAME = libft.a
 CC = cc
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -g3 #-Wall -Wextra -Werror 
 LIBFTDIR = ./libft
 
-SRCS = ./src/so_long.c
-BONUS_SRCS = bonus/so_long_bonus.c
+SRCS = src/so_long.c src/parsing.c src/parsing2.c src/init.c src/get_map.c src/err_pars.c\
+				src/img.c src/mlx_fun.c src/key.c
+BONUS_SRCS = bonus/so_long_bonus.c bonus/parsing.c bonus/parsing2.c bonus/init.c bonus/get_map.c bonus/err_pars.c bonus/bfs.c bonus/bfs_utils.c \
+				bonus/img.c bonus/mlx_fun.c bonus/key.c bonus/anime_pacman.c \
+				bonus/monster.c bonus/lose.c 
 OBJS = $(SRCS:.c=.o)
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
-
+MLX_FLAGS = -Lmlx -lmlx -Imlx -lXext -lX11 -lm
 
 
 HEADERS = ./include
@@ -30,7 +33,8 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C $(LIBFTDIR)
-	@$(CC) $(CFLAGS) -I$(HEADERS) -o $@ $(OBJS) -L ${LIBFTDIR} -lft
+	@make -C ./mlx
+	@$(CC) $(CFLAGS) -I$(HEADERS) -o $@ $(OBJS) ${MLX_FLAGS} -L ${LIBFTDIR} -lft
 	@printf "$(BLUE)\n\n\n"
 	@echo "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⢟⣛⣭⣵⣶⣶⣬⣭⣭⣭⣝⡛⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿"
 	@echo "⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⣫⣵⣾⣿⣿⣿⣿⣿⣿⣿⡿⣏⢻⣟⢿⣷⣬⡙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿"
@@ -63,7 +67,7 @@ $(NAME): $(OBJS)
 	
 %.o: %.c
 	@printf "$(LBLUE)[Compilation]$(RESET) In progress... $(GREEN)$<" && \
-	$(CC) $(CFLAGS) -I$(HEADERS) -c $< -o $@ && \
+	$(CC) $(CFLAGS) -I$(HEADERS) -Imlx -c $< -o $@ && \
 	printf "\r$(LBLUE)[Compilation]$(RESET) Completed   ... $(GREEN)$<" && \
 	printf " $(LBLUE)[$(RESET)$(CC)$(LBLUE)/]$(RESET)\n"
 
@@ -71,7 +75,8 @@ bonus :  ${BONUS_NAME}
 
 ${BONUS_NAME} : $(BONUS_OBJS)
 	@make -C $(LIBFTDIR)
-	@$(CC) $(CFLAGS) -I$(HEADERS) -o ${BONUS_NAME} $(BONUS_OBJS) -L ${LIBFTDIR} -lft
+	@make -C ./mlx
+	@$(CC) $(CFLAGS) -I$(HEADERS) -o ${BONUS_NAME} $(BONUS_OBJS) ${MLX_FLAGS} -L ${LIBFTDIR} -lft
 	@printf "$(BLUE)\n\n\n"
 	@echo "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⢟⣛⣭⣵⣶⣶⣬⣭⣭⣭⣝⡛⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿"
 	@echo "⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⣫⣵⣾⣿⣿⣿⣿⣿⣿⣿⡿⣏⢻⣟⢿⣷⣬⡙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿"
@@ -103,7 +108,8 @@ ${BONUS_NAME} : $(BONUS_OBJS)
 	@echo "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⢘⣿⣧⣀⣻⣿⣦⣽⣿⣿⡷⡿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿"
 
 clean:
-	@cd $(LIBFTDIR) && make clean
+	@make -C $(LIBFTDIR) clean
+	@make -C ./mlx clean
 	@for obj in $(OBJS); do \
 		printf "$(RED)Cleaning Libft...  Removing $$obj... " && \
 		sleep 0.01 && \
@@ -121,7 +127,7 @@ clean:
 
 	
 fclean: clean
-	@cd $(LIBFTDIR) && make fclean
+	@make -C $(LIBFTDIR) fclean
 	@rm -f $(NAME) $(BONUS_NAME) ${BONUS_NAME}
 	
 re: fclean all
