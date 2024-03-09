@@ -6,7 +6,7 @@
 /*   By: kasingh <kasingh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:00:36 by kasingh           #+#    #+#             */
-/*   Updated: 2024/03/09 11:49:07 by kasingh          ###   ########.fr       */
+/*   Updated: 2024/03/09 12:20:04 by kasingh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ int	main(int ac, char **av)
 	game = parse_map(&game, av[1]);
 	game.mlx_ptr = mlx_init();
 	if (!game.mlx_ptr)
-		return (free_map(game.map), 0);
+		return (ft_putstr_fd("Error\nMLX failed to initialize\n", 2),
+			free_map(game.map), 0);
 	game.win_ptr = mlx_new_window(game.mlx_ptr, game.cols * 35, game.rows * 35
 			+ 10, "SO_LONG");
 	if (!game.win_ptr)
@@ -76,7 +77,7 @@ int	main(int ac, char **av)
 		mlx_destroy_display(game.mlx_ptr);
 		free(game.mlx_ptr);
 		free_map(game.map);
-		return (0);
+		return (ft_putstr_fd("Error\nWindow failed to create\n", 2), 0);
 	}
 	init_img(&game);
 	mlx_loop_hook(game.mlx_ptr, loop_hook, &game);

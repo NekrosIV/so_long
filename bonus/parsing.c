@@ -6,7 +6,7 @@
 /*   By: kasingh <kasingh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 17:47:38 by kasingh           #+#    #+#             */
-/*   Updated: 2024/03/08 18:26:36 by kasingh          ###   ########.fr       */
+/*   Updated: 2024/03/09 12:10:35 by kasingh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	is_valid_map(t_game *game)
 		{
 			if (!is_good_symbol(game->map[i][j]))
 			{
-				printf("game->map[i][j] = %d\n", game->map[i][j]);
+				ft_printf("game->map[i][j] = %d\n", game->map[i][j]);
 				map_error(game->map, "Error\nInvalid symbol in map\n");
 			}
 			game->p_count += (game->map[i][j] == 'P');

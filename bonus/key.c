@@ -6,7 +6,7 @@
 /*   By: kasingh <kasingh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 16:50:57 by kasingh           #+#    #+#             */
-/*   Updated: 2024/03/09 11:17:47 by kasingh          ###   ########.fr       */
+/*   Updated: 2024/03/09 12:13:25 by kasingh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	do_move(t_game *game, int y, int x)
 {
-	game->moves++;
-	printf("moves: %d\n", game->moves);
 	game->map[y][x] = '0';
 	if (game->direction == 'u')
 		y = y - 1;
@@ -48,6 +46,7 @@ void	key_up(t_game *game)
 		if (game->map[y - 1][x] != '1')
 		{
 			game->direction = 'u';
+			game->moves++;
 			do_move(game, y, x);
 		}
 	}
@@ -65,6 +64,7 @@ void	key_down(t_game *game)
 		if (game->map[y + 1][x] != '1')
 		{
 			game->direction = 'd';
+			game->moves++;
 			do_move(game, y, x);
 		}
 	}
@@ -82,6 +82,7 @@ void	key_left(t_game *game)
 		if (game->map[y][x - 1] != '1')
 		{
 			game->direction = 'l';
+			game->moves++;
 			do_move(game, y, x);
 		}
 	}
@@ -99,6 +100,7 @@ void	key_right(t_game *game)
 		if (game->map[y][x + 1] != '1')
 		{
 			game->direction = 'r';
+			game->moves++;
 			do_move(game, y, x);
 		}
 	}
