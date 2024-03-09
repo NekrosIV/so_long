@@ -6,11 +6,11 @@
 /*   By: kasingh <kasingh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 18:33:41 by kasingh           #+#    #+#             */
-/*   Updated: 2024/03/08 18:34:45 by kasingh          ###   ########.fr       */
+/*   Updated: 2024/03/09 11:47:24 by kasingh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long_bonus.h"
+#include "so_long.h"
 
 int	mouse_close(t_game *game)
 {

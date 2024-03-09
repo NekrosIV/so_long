@@ -6,7 +6,7 @@
 /*   By: kasingh <kasingh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 18:13:09 by kasingh           #+#    #+#             */
-/*   Updated: 2024/03/08 18:23:31 by kasingh          ###   ########.fr       */
+/*   Updated: 2024/03/09 11:12:09 by kasingh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	do_bfs2(char **map, t_bfs *bfs, int i, int *collectibles)
 	}
 }
 
-bool	do_bfs(t_game *game, char **map, t_bfs *bfs, int collectibles)
+bool	do_bfs(char **map, t_bfs *bfs, int collectibles)
 {
 	int	i;
 
@@ -97,7 +97,7 @@ bool	call_bfs(t_game *game, char **cpy_map)
 	bfs.directions[3].x = 1;
 	bfs.directions[3].y = 0;
 	cpy_map = ft_cpy_2dtab(game->map);
-	result = do_bfs(game, cpy_map, &bfs, game->coins);
+	result = do_bfs(cpy_map, &bfs, game->coins);
 	free_map(cpy_map);
 	return (result);
 }

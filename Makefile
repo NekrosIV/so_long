@@ -2,13 +2,13 @@ NAME = so_long
 BONUS_NAME = so_long_bonus
 LIBFTNAME = libft.a
 CC = cc
-CFLAGS = -g3 #-Wall -Wextra -Werror 
+CFLAGS = -g3 -Wall -Wextra -Werror 
 LIBFTDIR = ./libft
 
 SRCS = src/so_long.c src/parsing.c src/parsing2.c src/init.c src/get_map.c src/err_pars.c\
 				src/img.c src/mlx_fun.c src/key.c
 BONUS_SRCS = bonus/so_long_bonus.c bonus/parsing.c bonus/parsing2.c bonus/init.c bonus/get_map.c bonus/err_pars.c bonus/bfs.c bonus/bfs_utils.c \
-				bonus/img.c bonus/mlx_fun.c bonus/key.c bonus/anime_pacman.c \
+				bonus/img.c bonus/mlx_funtion.c bonus/key.c bonus/anime_pacman.c \
 				bonus/monster.c bonus/lose.c 
 OBJS = $(SRCS:.c=.o)
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: kasingh <kasingh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 18:45:03 by kasingh           #+#    #+#             */
-/*   Updated: 2024/03/08 18:45:09 by kasingh          ###   ########.fr       */
+/*   Updated: 2024/03/09 11:29:29 by kasingh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	init_game(t_game *game)
 	game->win_ptr = 0;
 	game->direction = 0;
 	i = 0;
-	while (i < 10)
+	while (i <= 10)
 	{
 		game->img_ptr[i] = 0;
 		i++;

@@ -6,7 +6,7 @@
 /*   By: kasingh <kasingh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 12:51:17 by kasingh           #+#    #+#             */
-/*   Updated: 2024/03/08 18:23:37 by kasingh          ###   ########.fr       */
+/*   Updated: 2024/03/09 11:13:30 by kasingh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,7 @@ bool				is_empty(const t_node *head);
 
 bool				can_i_stop_here(char **map, int i, int y, int x);
 void				do_bfs2(char **map, t_bfs *bfs, int i, int *collectibles);
-bool				do_bfs(t_game *game, char **map, t_bfs *bfs,
-						int collectibles);
+bool				do_bfs(char **map, t_bfs *bfs, int collectibles);
 bool				call_bfs(t_game *game, char **cpy_map);
 
 void				flood_fill(int y, int x, int tab_count[3], char **cpy_map);

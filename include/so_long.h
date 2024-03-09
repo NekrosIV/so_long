@@ -6,7 +6,7 @@
 /*   By: kasingh <kasingh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 13:15:45 by kasingh           #+#    #+#             */
-/*   Updated: 2024/03/08 18:49:26 by kasingh          ###   ########.fr       */
+/*   Updated: 2024/03/09 11:46:24 by kasingh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void		init_img(t_game *game);
 int			mouse_close(t_game *game);
 void		esc_close(t_game *game);
 int			key_hook(int keycode, t_game *game);
+void		map_render(t_game *game);
 int			loop_hook(t_game *game);
 
 void		do_move(t_game *game, int y, int x);

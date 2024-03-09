@@ -6,7 +6,7 @@
 /*   By: kasingh <kasingh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:00:36 by kasingh           #+#    #+#             */
-/*   Updated: 2024/03/08 18:45:58 by kasingh          ###   ########.fr       */
+/*   Updated: 2024/03/09 11:49:07 by kasingh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	map_render(t_game *game)
 			else if (game->map[y][x] == 'C')
 				put_img(game, x * 35, y * 35, game->img_ptr[3]);
 			else if (game->map[y][x] == 'E' && game->coins != 0)
-				put_img(game, x * 35, y * 35, game->img_ptr[0]);
+				put_img(game, x * 35, y * 35, game->img_ptr[1]);
 			else if (game->map[y][x] == 'E' && game->coins <= 0)
 				put_img(game, x * 35, y * 35, game->img_ptr[4]);
 			x++;
