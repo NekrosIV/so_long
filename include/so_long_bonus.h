@@ -6,7 +6,7 @@
 /*   By: kasingh <kasingh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 12:51:17 by kasingh           #+#    #+#             */
-/*   Updated: 2024/03/09 11:13:30 by kasingh          ###   ########.fr       */
+/*   Updated: 2024/03/10 11:45:10 by kasingh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_game
 	int				moves;
 	char			direction;
 	char			d_m;
+	char			game_mode;
 	int				player_x;
 	int				player_y;
 	void			*mlx_ptr;
@@ -71,6 +72,7 @@ typedef struct s_bfs
 	int				exit;
 }					t_bfs;
 
+void				chose_game_mode(t_game *game, int keycode);
 void				init_game(t_game *game);
 void				init_tab_count(int tab_count[4], t_game *game);
 
@@ -125,7 +127,7 @@ int					good_sprite(t_game *game);
 void				do_slower(t_game *game, int y, int x);
 void				do_dead_anim(t_game *game);
 
-char				calculate_direction_moster(void);
+char				random_direction_moster(void);
 void				do_move_monster(t_game *game, int y, int x, int i);
 void				monster_move2(t_game *game, int y, int x, int i);
 int					monster_move(t_game *game);
