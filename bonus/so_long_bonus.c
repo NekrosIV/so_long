@@ -6,7 +6,7 @@
 /*   By: kasingh <kasingh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 11:04:59 by kasingh           #+#    #+#             */
-/*   Updated: 2024/03/09 12:22:27 by kasingh          ###   ########.fr       */
+/*   Updated: 2024/03/10 12:07:53 by kasingh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,32 @@ void	map_render(t_game *game)
 	}
 }
 
+char	calculate_direction_moster(t_game *game, int i)
+{
+	int	y_m;
+	int	x_m;
+	int	y_p;
+	int	x_p;
+
+	y_m = game->m[i][0];
+	x_m = game->m[i][1];
+	y_p = game->player_y;
+	x_p = game->player_x;
+	if (y_m > y_p && (game->map[y_m - 1][x_m] == '0' || game->map[y_m
+			- 1][x_m] == 'P'))
+		return ('u');
+	else if (y_m < y_p && (game->map[y_m + 1][x_m] == '0' || game->map[y_m
+			+ 1][x_m] == 'P'))
+		return ('d');
+	else if (x_m > x_p && (game->map[y_m][x_m - 1] == '0' || game->map[y_m][x_m
+		- 1] == 'P'))
+		return ('l');
+	else if (x_m < x_p && (game->map[y_m][x_m + 1] == '0' || game->map[y_m][x_m
+		+ 1] == 'P'))
+		return ('r');
+	return (random_direction_moster());
+}
+
 int	monster_move(t_game *game)
 {
 	static int	i;
@@ -50,8 +76,13 @@ int	monster_move(t_game *game)
 
 	y = game->m[i][0];
 	x = game->m[i][1];
-	game->d_m = calculate_direction_moster();
-	if (game->map[y][x] == 'M')
+	if (game->game_mode == 'e')
+		game->d_m = 0;
+	else if ((i == 0 && game->game_mode == 'h') || game->game_mode == 'i')
+		game->d_m = calculate_direction_moster(game, i);
+	else
+		game->d_m = random_direction_moster();
+	if (game->map[y][x] == 'M' && game->game_mode != 'e')
 		monster_move2(game, y, x, i);
 	good_mostr = i;
 	i++;

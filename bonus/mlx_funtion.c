@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_fun.c                                          :+:      :+:    :+:   */
+/*   mlx_funtion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kasingh <kasingh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 16:53:51 by kasingh           #+#    #+#             */
-/*   Updated: 2024/03/08 17:14:10 by kasingh          ###   ########.fr       */
+/*   Updated: 2024/03/10 11:32:44 by kasingh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,9 @@ int	key_hook(int keycode, t_game *game)
 		esc_close(game);
 	else if (game->direction != 0)
 		return (0);
+	else if (keycode == XK_e || keycode == XK_n || keycode == XK_h
+		|| keycode == XK_i)
+		chose_game_mode(game, keycode);
 	else if (keycode == XK_Up && game->mv_death == 0)
 		key_up(game);
 	else if (keycode == XK_Down && game->mv_death == 0)

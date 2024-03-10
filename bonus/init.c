@@ -6,11 +6,23 @@
 /*   By: kasingh <kasingh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 17:48:12 by kasingh           #+#    #+#             */
-/*   Updated: 2024/03/08 18:09:01 by kasingh          ###   ########.fr       */
+/*   Updated: 2024/03/10 11:44:25 by kasingh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
+
+void	chose_game_mode(t_game *game, int keycode)
+{
+	if (keycode == XK_e)
+		game->game_mode = 'e';
+	else if (keycode == XK_n)
+		game->game_mode = 'n';
+	else if (keycode == XK_h)
+		game->game_mode = 'h';
+	else if (keycode == XK_i)
+		game->game_mode = 'i';
+}
 
 void	init_tab_count(int tab_count[4], t_game *game)
 {
@@ -37,6 +49,7 @@ void	init_game(t_game *game)
 	game->e[1] = 0;
 	game->monster = 0;
 	game->d_m = 0;
+	game->game_mode = 'e';
 	game->direction = 0;
 	game->mlx_ptr = 0;
 	game->win_ptr = 0;

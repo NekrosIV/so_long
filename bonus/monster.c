@@ -6,13 +6,13 @@
 /*   By: kasingh <kasingh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 17:11:05 by kasingh           #+#    #+#             */
-/*   Updated: 2024/03/08 18:27:22 by kasingh          ###   ########.fr       */
+/*   Updated: 2024/03/10 11:56:26 by kasingh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-char	calculate_direction_moster(void)
+char	random_direction_moster(void)
 {
 	int	random;
 
@@ -102,6 +102,7 @@ void	do_slower_monster(t_game *game)
 	{
 		tab[0] = 0;
 		is_player_dead(game);
+		game->d_m = 0;
 		tab[1] = monster_move(game);
 	}
 }
